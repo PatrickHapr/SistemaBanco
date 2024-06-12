@@ -4,9 +4,14 @@
  */
 package sisbanco;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -14,14 +19,32 @@ import javax.swing.JOptionPane;
  */
 public class CadastraCliente extends javax.swing.JFrame {
    private ClienteTableModel tabModel = new ClienteTableModel();
+   private TableRowSorter<ClienteTableModel> sorter;
    private int linhaClicadaParaAtualizacao = -1;
    private Cliente clienteSelecionadoParaAtualizacao;
-
+   private String criterioSelecionado;
+   private String termoBusca;
     /**
      * Creates new form CadastraCliente
      */
     public CadastraCliente() {
         initComponents();
+        tabCliente.setModel(tabModel);
+        sorter = new TableRowSorter<>(tabModel);
+        tabCliente.setRowSorter(sorter);
+        
+     for (int i = 0; i < tabModel.getColumnCount(); i++) {
+        final int columnIndex = i;
+        tabCliente.getTableHeader().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int columnIndex = tabCliente.columnAtPoint(e.getPoint());
+                List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+                sortKeys.add(new RowSorter.SortKey(columnIndex, SortOrder.ASCENDING));
+                sorter.setSortKeys(sortKeys);
+            }
+        });
+    }
     }
 
     /**
@@ -240,11 +263,14 @@ public class CadastraCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Selecione alguma linha para excluir.\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
             return;            
         }
+        int option = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir o(s) cliente(s) selecionado(s)?\nTodas as contas vinculadas serão apagadas.", "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+        if(option == JOptionPane.YES_OPTION){
         this.tabModel.removeClientes(listaExcluir);
         for(Cliente c:listaExcluir)
             Sistema.hashClientes.remove(c.getCpf());
         this.clienteSelecionadoParaAtualizacao = null;
         linhaClicadaParaAtualizacao=-1;
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void tabClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabClienteMouseClicked
