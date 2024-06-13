@@ -6,7 +6,7 @@ package sisbanco;
 
 /**
  *
- * @author UFPR
+ * @author Alves
  */
 public class ContaCorrente extends Conta{
     private double limite;

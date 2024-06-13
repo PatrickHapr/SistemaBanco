@@ -15,7 +15,7 @@ import javax.swing.table.TableRowSorter;
 
 /**
  *
- * @author rafae
+ * @author Alves
  */
 public class CadastraCliente extends javax.swing.JFrame {
    private ClienteTableModel tabModel = new ClienteTableModel();
@@ -24,6 +24,7 @@ public class CadastraCliente extends javax.swing.JFrame {
    private Cliente clienteSelecionadoParaAtualizacao;
    private String criterioSelecionado;
    private String termoBusca;
+   //private ContaCliente contaClienteForm = new ContaCliente();
     /**
      * Creates new form CadastraCliente
      */
@@ -56,6 +57,7 @@ public class CadastraCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -73,6 +75,9 @@ public class CadastraCliente extends javax.swing.JFrame {
         btnAtualizar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,6 +140,13 @@ public class CadastraCliente extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Conta");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,6 +160,8 @@ public class CadastraCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimpar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnListar))
@@ -206,7 +220,8 @@ public class CadastraCliente extends javax.swing.JFrame {
                     .addComponent(btnListar)
                     .addComponent(btnAtualizar)
                     .addComponent(btnExcluir)
-                    .addComponent(btnLimpar))
+                    .addComponent(btnLimpar)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                 .addContainerGap())
@@ -233,9 +248,9 @@ public class CadastraCliente extends javax.swing.JFrame {
         this.tabCliente.setRowSelectionInterval(Sistema.hashClientes.size()-1, Sistema.hashClientes.size()-1);
         this.clienteSelecionadoParaAtualizacao = c;
         linhaClicadaParaAtualizacao = Sistema.hashClientes.size()-1;
- 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
@@ -294,6 +309,14 @@ public class CadastraCliente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        updateContaClienteForm();
+    }//GEN-LAST:event_jButton2ActionPerformed
+    private void updateContaClienteForm() {
+        List<Cliente> clientes = new ArrayList<>(Sistema.hashClientes.values());
+        ContaCliente outraTela = new ContaCliente(clientes);
+        outraTela.setVisible(true);
+    }
     private List<Cliente> getClienteParaExcluirDaTabela() {
         int[] linhasSelecionadas = this.tabCliente.getSelectedRows();
         List<Cliente> listaExcluir = new ArrayList();
@@ -374,6 +397,8 @@ public class CadastraCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnListar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -387,4 +412,5 @@ public class CadastraCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtRG;
     private javax.swing.JTextField txtSobreNome;
     // End of variables declaration//GEN-END:variables
+
 }
