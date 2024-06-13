@@ -7,6 +7,7 @@ package sisbanco.view;
 import java.util.ArrayList;
 import java.util.List;
 import sisbanco.bd.BancoDeDados;
+import sisbanco.entities.Cliente;
 
 /**
  *
@@ -17,7 +18,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
-    
     public TelaPrincipal() {
         initComponents();
     }
@@ -101,7 +101,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.out.print(BancoDeDados.hashClientes);
+        List<Cliente> clientes = new ArrayList<>(BancoDeDados.hashClientes.values());
+        ContaCliente outraTela = new ContaCliente(clientes);
+        outraTela.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
