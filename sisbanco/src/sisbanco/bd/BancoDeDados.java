@@ -3,10 +3,8 @@ package sisbanco.bd;
 import sisbanco.entities.Cliente;
 import sisbanco.entities.Conta;
 import sisbanco.entities.ContaCorrente;
-import sisbanco.entities.ContaInvestimento;
 import sisbanco.exceptions.ClienteJaTemContaException;
 import sisbanco.exceptions.ClienteNaoEncontradoException;
-import sisbanco.exceptions.ContaNaoEncontradaException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,37 +86,19 @@ public class BancoDeDados {
         return BancoDeDados.contas;
     }
 
-    public static void criarConta(ContaCorrente novaContaCorrente) {
+    public static void criarConta(Conta novaConta) {
         for (Conta conta : contas) {
-            if (conta.getDono().equals(novaContaCorrente.getDono()) && conta.getClass() == ContaCorrente.class)
-                throw new ClienteJaTemContaException("O cliente já tem uma conta corrente");
+            if (conta.getDono().equals(novaConta.getDono()))
+                throw new ClienteJaTemContaException("O cliente já tem uma conta");
         }
 
-        contas.add(novaContaCorrente);
+        contas.add(novaConta);
     }
 
-    public static void criarConta(ContaInvestimento novaContaInvestimento) {
+    public static Conta getContaByCliente(Cliente cliente) {
         for (Conta conta : contas) {
-            if (conta.getDono().equals(novaContaInvestimento.getDono()) && conta.getClass() == ContaInvestimento.class)
-                throw new ClienteJaTemContaException("O cliente já tem uma conta de investimento");
-        }
-
-        contas.add(novaContaInvestimento);
-    }
-
-    public static ContaCorrente getContaCorrenteByCliente(Cliente cliente) {
-        for (Conta conta : contas) {
-            if (conta.getDono().equals(cliente) && conta.getClass() == ContaCorrente.class)
+            if (conta.getDono().equals(cliente))
                 return (ContaCorrente) conta;
-        }
-
-        return null;
-    }
-
-    public static ContaInvestimento getContaInvestimentoByCliente(Cliente cliente) {
-        for (Conta conta : contas) {
-            if (conta.getDono().equals(cliente) && conta.getClass() == ContaInvestimento.class)
-                return (ContaInvestimento) conta;
         }
 
         return null;

@@ -2,6 +2,7 @@ package sisbanco.view;
 
 import sisbanco.bd.BancoDeDados;
 import sisbanco.entities.Cliente;
+import sisbanco.entities.Conta;
 import sisbanco.entities.ContaCorrente;
 import sisbanco.entities.ContaInvestimento;
 
@@ -162,13 +163,11 @@ public class ManipularConta extends javax.swing.JFrame {
     // END OF GENERATED CODE
 
     private Cliente cliente;
-    private ContaCorrente contaCorrenteDoCliente;
-    private ContaInvestimento contaInvestimentoDoCliente;
+    private Conta contaDoCliente;
 
     public ManipularConta(Cliente cliente) {
         initComponents();
         this.cliente = cliente;
-        this.contaCorrenteDoCliente = BancoDeDados.getContaCorrenteByCliente(cliente);
-        this.contaInvestimentoDoCliente = BancoDeDados.getContaInvestimentoByCliente(cliente);
+        this.contaDoCliente = BancoDeDados.getContaByCliente(cliente);
     }
 }
