@@ -1,20 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package sisbanco.entities;
 
-/**
- *
- * @author Alves
- */
 public class Cliente {
     private String nome;
     private String sobreNome;
     private String rg;
     private String cpf;
     private String endereco;
-    private Conta conta;
 
     public Cliente(String nome, String sobreNome, String rg, String cpf, String endereco) {
         this.nome = nome;
@@ -63,15 +54,4 @@ public class Cliente {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-
-    public Conta getConta() {
-        return conta;
-    }
-
-    public void setConta(Conta conta) {
-        this.conta = conta;
-    }
-
-
-    
 }

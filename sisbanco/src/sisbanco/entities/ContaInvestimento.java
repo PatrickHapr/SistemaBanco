@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package sisbanco.entities;
 
-/**
- *
- * @author Alves
- */
 public class ContaInvestimento extends Conta {
     private double montanteMinimo;
     private double depositoMinimo;
@@ -40,7 +32,7 @@ public class ContaInvestimento extends Conta {
 
     @Override
     public void remunera() {
-        saldo *= 1.02; // Aplica 2% de remuneração
+        saldo *= 1.02;
     }
 
     @Override

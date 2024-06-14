@@ -3,30 +3,25 @@
  * and open the template in the editor.
  */
 
-package sisbanco.entities;
+package sisbanco.view;
+
+import sisbanco.entities.Cliente;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Alves
- */
 public class ClienteTableModel extends AbstractTableModel{
-    private String[] colunas=new String[]{"Nome","SobreNome", "RG", "CPF","Endereco"};
+    private final String[] colunas = new String[] {"Nome", "Sobrenome", "RG", "CPF", "Endereco"};
 
-    private List<Cliente> lista=new ArrayList();
-
+    private List<Cliente> lista = new ArrayList<>();
     
     public ClienteTableModel(List<Cliente> lista){
         this.lista=lista;
     }
 
-    public ClienteTableModel(){
-    }
-
+    public ClienteTableModel() {}
 
     @Override
     public int getRowCount() {
@@ -44,24 +39,16 @@ public class ClienteTableModel extends AbstractTableModel{
     }
 
     @Override
-    public boolean isCellEditable(int row, int column) {
-        return false;
-        /*if(column==0)
-            return true;
-        return false;*/
-    }
-
-    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Cliente customer = lista.get(rowIndex);
-        switch (columnIndex) {
-            case 0: return customer.getNome();//if column 0 (code)
-            case 1: return customer.getSobreNome();//if column 1 (name)
-            case 2: return customer.getRg();//if column 2 (birthday)
-            case 3: return customer.getCpf();
-            case 4: return customer.getEndereco() ;
-            default : return null;
-        }
+        return switch (columnIndex) {
+            case 0 -> customer.getNome();//if column 0 (code)
+            case 1 -> customer.getSobreNome();//if column 1 (name)
+            case 2 -> customer.getRg();//if column 2 (birthday)
+            case 3 -> customer.getCpf();
+            case 4 -> customer.getEndereco();
+            default -> null;
+        };
     }
 
     public boolean removeCliente(Cliente customer) {
@@ -113,5 +100,4 @@ public class ClienteTableModel extends AbstractTableModel{
     public void atualizarCliente(int linha){
         this.fireTableRowsUpdated(linha, linha);
     }
-    
 }
