@@ -232,6 +232,19 @@ public class CadastraCliente extends javax.swing.JFrame {
         String cpf = txtCPF.getText();
         String endereco = txtEndereco.getText();
         
+        if(nome.isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Nome não Valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if(sobreNome.isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Sobrenome não Valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if(endereco.isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Endereço não Valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
         if(!validaCpf(cpf)) {
             JOptionPane.showMessageDialog(null,"CPF não Valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
             return;  
