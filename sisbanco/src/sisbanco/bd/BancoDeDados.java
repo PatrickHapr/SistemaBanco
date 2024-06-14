@@ -98,7 +98,7 @@ public class BancoDeDados {
     public static Conta getContaByCliente(Cliente cliente) {
         for (Conta conta : contas) {
             if (conta.getDono().equals(cliente))
-                return (ContaCorrente) conta;
+                return conta;
         }
 
         return null;
