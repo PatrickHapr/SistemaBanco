@@ -3,8 +3,8 @@ package sisbanco.view;
 import sisbanco.bd.BancoDeDados;
 import sisbanco.entities.Cliente;
 import sisbanco.entities.Conta;
-import sisbanco.entities.ContaCorrente;
-import sisbanco.entities.ContaInvestimento;
+
+import javax.swing.*;
 
 public class ManipularConta extends javax.swing.JFrame {
     // START OF GENERATED CODE
@@ -26,7 +26,7 @@ public class ManipularConta extends javax.swing.JFrame {
         valorDeposito = new javax.swing.JLabel();
         txtDeposito = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         btnSaque.setText("Saque");
 
@@ -144,6 +144,30 @@ public class ManipularConta extends javax.swing.JFrame {
         );
 
         pack();
+
+        btnSacar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSacarActionPerformed(evt);
+            }
+        });
+
+        btnDepositar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDepositarActionPerformed(evt);
+            }
+        });
+
+        btnSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerSaldoActionPerformed(evt);
+            }
+        });
+
+        btnRemunera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemunerarActionPerformed(evt);
+            }
+        });
     }
 
     private javax.swing.JButton btnDepositar;
@@ -162,12 +186,70 @@ public class ManipularConta extends javax.swing.JFrame {
     private javax.swing.JLabel valorSaque;
     // END OF GENERATED CODE
 
-    private Cliente cliente;
-    private Conta contaDoCliente;
+    private final Cliente cliente;
+    private final Conta contaDoCliente;
 
     public ManipularConta(Cliente cliente) {
         initComponents();
         this.cliente = cliente;
         this.contaDoCliente = BancoDeDados.getContaByCliente(cliente);
+    }
+
+    private void jButtonSacarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (this.contaDoCliente == null) {
+            JOptionPane.showMessageDialog(this, "Crie uma conta antes de sacar", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        double valorSaque = Double.parseDouble(txtSaque.getText());
+
+        if (valorSaque < 0) {
+            JOptionPane.showMessageDialog(this, "Não é possível sacar um valor menor que 0", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        if (this.contaDoCliente.getSaldo() > valorSaque) {
+            this.contaDoCliente.saca(valorSaque);
+            JOptionPane.showMessageDialog(this, "Saque concluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Saldo indisponível", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void jButtonDepositarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (this.contaDoCliente == null) {
+            JOptionPane.showMessageDialog(this, "Crie uma conta antes de depositar", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        double valorDeposito = Double.parseDouble(txtDeposito.getText());
+
+        if (valorDeposito < 0) {
+            JOptionPane.showMessageDialog(this, "Não é possível depositar um valor menor que 0", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        this.contaDoCliente.deposita(valorDeposito);
+        JOptionPane.showMessageDialog(this, "Deposito concluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void jButtonVerSaldoActionPerformed(java.awt.event.ActionEvent evt) {
+        if (this.contaDoCliente == null) {
+            JOptionPane.showMessageDialog(this, "Crie uma conta antes de ver o saldo", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        double saldo = this.contaDoCliente.getSaldo();
+        JOptionPane.showMessageDialog(this, "Seu saldo é: " + saldo, "Informação", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void jButtonRemunerarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (this.contaDoCliente == null) {
+            JOptionPane.showMessageDialog(this, "Crie uma conta antes de remunerar", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        this.contaDoCliente.remunera();
+        JOptionPane.showMessageDialog(this, "Remuneração feita com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
 }
