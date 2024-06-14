@@ -34,19 +34,4 @@ public class ContaInvestimento extends Conta {
     public void remunera() {
         saldo *= 1.02;
     }
-
-    @Override
-    public Cliente getDono() {
-        return dono;
-    }
-
-    @Override
-    public int getNumero() {
-        return numero;
-    }
-
-    @Override
-    public double getSaldo() {
-        return saldo;
-    }
 }

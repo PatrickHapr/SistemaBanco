@@ -16,12 +16,12 @@ public class BancoDeDados {
 
     public static void adicionarCliente(Cliente novoCliente) {
         for (Cliente cliente : clientes) {
-            if (cliente.getRg().equals(novoCliente.getCpf()))
+            if (cliente.getCpf().equals(novoCliente.getCpf()))
                 throw new RuntimeException("Cliente com o CPF " +  novoCliente.getCpf() + " já existe");
         }
 
         for (Cliente cliente : clientes) {
-            if (cliente.getRg().equals(novoCliente.getCpf()))
+            if (cliente.getRg().equals(novoCliente.getRg()))
                 throw new RuntimeException("Cliente com o RG " +  novoCliente.getRg() + " já existe");
         }
 
@@ -34,8 +34,6 @@ public class BancoDeDados {
         if (cliente != null) {
             clientes.remove(cliente);
             contas.removeIf(conta -> conta.getDono().equals(cliente));
-        } else {
-            throw new RuntimeException("Cliente com o CPF " +  cpf + " não encontrado");
         }
     }
 

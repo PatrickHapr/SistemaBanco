@@ -168,6 +168,16 @@ public class ManipularConta extends javax.swing.JFrame {
                 jButtonRemunerarActionPerformed(evt);
             }
         });
+        btnDeposito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTabbedPane1.setSelectedIndex(2); // Change to the "Depósito" tab
+            }
+        });
+        btnSaque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTabbedPane1.setSelectedIndex(1); // Change to the "Saque" tab
+            }
+        });
     }
 
     private javax.swing.JButton btnDepositar;
