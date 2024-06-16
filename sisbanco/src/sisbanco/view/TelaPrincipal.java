@@ -106,7 +106,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        ContaCliente telaContaCliente = new ContaCliente();
+        ClienteConta telaContaCliente = new ClienteConta();
         telaContaCliente.setVisible(true);
     }
 
