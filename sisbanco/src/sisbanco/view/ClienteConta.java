@@ -4,13 +4,18 @@
  */
 package sisbanco.view;
 
+import java.util.List;
+import java.util.UUID;
 import javax.swing.JOptionPane;
 import sisbanco.entities.Cliente;
 import sisbanco.entities.ContaCorrente;
 import sisbanco.entities.ContaInvestimento;
 import sisbanco.bd.BancoDeDados;
 import sisbanco.exceptions.ClienteJaTemContaException;
-
+import sisbanco.dao.ClienteDAOImpl;
+import sisbanco.dao.ClienteDAO;
+import sisbanco.dao.ContaDAO;
+import sisbanco.dao.ContaDAOImpl;
 
 /**
  *
@@ -29,11 +34,9 @@ public class ClienteConta extends javax.swing.JFrame {
         initComponents();
         ContaInvestimento.setVisible(false);
         ContaCorrente.setVisible(false);
-        for (Cliente cliente : BancoDeDados.getAllClientes()) {
-            ComboCliente.addItem(cliente.getNome());
-        }
+        carregarClientes();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,12 +244,25 @@ public class ClienteConta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void carregarClientes() {
+        try {
+            ClienteDAOImpl clienteDAO = new ClienteDAOImpl(); 
+            List<Cliente> clientes = clienteDAO.getAllClientes(); 
 
+            for (Cliente cliente : clientes) {
+                ComboCliente.addItem(cliente.getNome());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar clientes: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     private void VincularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VincularActionPerformed
-        if("Conta Corrente".equals(nameOfSelectedAccount)) {
+        if ("Conta Corrente".equals(nameOfSelectedAccount)) {
             ContaInvestimento.setVisible(false);
             ContaCorrente.setVisible(true);
-        } else if("Conta Investimento".equals(nameOfSelectedAccount)) {
+        } else if ("Conta Investimento".equals(nameOfSelectedAccount)) {
             ContaInvestimento.setVisible(true);
             ContaCorrente.setVisible(false);
         }
@@ -256,28 +272,40 @@ public class ClienteConta extends javax.swing.JFrame {
         double montanteMinimo = Double.parseDouble(MM.getText());
         double depositoMinimo = Double.parseDouble(DMI.getText());
         double depositoInicial = Double.parseDouble(DII.getText());
-
+        int numeroGerado = (int) gerarNumeroAleatorio();
         try {
-            Cliente cliente = BancoDeDados.getClienteByNome(this.nameOfSelectedClient);
-            ContaInvestimento novaContaInvestimento = new ContaInvestimento(cliente, BancoDeDados.gerarNumeroConta(), depositoInicial, montanteMinimo, depositoMinimo);
-            BancoDeDados.criarConta(novaContaInvestimento);
+            ClienteDAO clienteDAO = new ClienteDAOImpl();
+            Cliente cliente = (Cliente) clienteDAO.findClientesByName(this.nameOfSelectedClient);
+            ContaInvestimento novaContaInvestimento = new ContaInvestimento(cliente, 
+                    numeroGerado, depositoInicial, montanteMinimo, depositoMinimo);
+            ContaDAO contaDAO = new ContaDAOImpl();
+            contaDAO.saveContaInvestimento(novaContaInvestimento);
             JOptionPane.showMessageDialog(null, "Conta de investimento criada com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
         } catch (ClienteJaTemContaException e) {
-            JOptionPane.showMessageDialog(null,e.getMessage(), "Informação", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         double depositoInicial = Double.parseDouble(DIC.getText());
         double limite = Double.parseDouble(LC.getText());
-
+        int numeroGerado = (int) gerarNumeroAleatorio();
         try {
-            Cliente cliente = BancoDeDados.getClienteByNome(this.nameOfSelectedClient);
-            ContaCorrente novaContaCorrente = new ContaCorrente(cliente, BancoDeDados.gerarNumeroConta(), depositoInicial, limite);
-            BancoDeDados.criarConta(novaContaCorrente);
+            ClienteDAO clienteDAO = new ClienteDAOImpl();
+            Cliente cliente = (Cliente) clienteDAO.findClientesByName(this.nameOfSelectedClient);
+
+            ContaCorrente novaContaCorrente = new ContaCorrente(cliente, numeroGerado, depositoInicial, limite);
+
+            ContaDAO contaDAO = new ContaDAOImpl();
+            contaDAO.saveContaCorrente(novaContaCorrente);
+
             JOptionPane.showMessageDialog(null, "Conta corrente criada com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
         } catch (ClienteJaTemContaException e) {
-            JOptionPane.showMessageDialog(null,e.getMessage(), "Informação", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -349,4 +377,8 @@ public class ClienteConta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
+
+    public long gerarNumeroAleatorio() {
+        return Math.abs(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE) % 1000000; 
+    }
 }

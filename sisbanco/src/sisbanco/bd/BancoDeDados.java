@@ -8,7 +8,7 @@ import sisbanco.exceptions.ClienteNaoEncontradoException;
 
 import java.util.ArrayList;
 import java.util.List;
-
+    
 public class BancoDeDados {
     public static final List<Cliente> clientes = new ArrayList<>();
     public static final List<Conta> contas = new ArrayList<>();

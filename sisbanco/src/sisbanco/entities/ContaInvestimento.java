@@ -34,4 +34,11 @@ public class ContaInvestimento extends Conta {
     public void remunera() {
         saldo *= 1.02;
     }
+    public double getMontanteMinimo() {
+        return this.montanteMinimo;
+    }
+
+    public double getDepositoMinimo() {
+        return this.depositoMinimo;
+    }
 }

@@ -21,4 +21,19 @@ public class ContaCorrente extends Conta{
     public void remunera() {
         saldo *= 1.01; 
     }
+
+    public int getUserId() {
+        return getDono().getId(); 
+    }
+
+    public String getTipo() {
+        return "ContaCorrente"; 
+    }
+
+    public double getLimite() {
+        return limite;
+    }
+    public void setLimite(double limite) {
+        this.limite = limite;
+    }
 }

@@ -3,6 +3,8 @@ package sisbanco.view;
 import javax.swing.*;
 
 import sisbanco.bd.BancoDeDados;
+import sisbanco.dao.ClienteDAO;
+import sisbanco.dao.ClienteDAOImpl;
 import sisbanco.entities.Cliente;
 import sisbanco.exceptions.ClienteNaoEncontradoException;
 import sisbanco.utils.Validador;
@@ -58,6 +60,7 @@ public class SelecionarCpf extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
+    private ClienteDAO clienteDAO;
     // END OF GENERATED CODE
 
     public SelecionarCpf() {
@@ -66,6 +69,7 @@ public class SelecionarCpf extends javax.swing.JFrame {
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.clienteDAO = new ClienteDAOImpl();
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,7 +81,7 @@ public class SelecionarCpf extends javax.swing.JFrame {
         }
 
         try {
-            Cliente cliente = BancoDeDados.getClienteByCpf(cpf);
+            Cliente cliente = clienteDAO.findByCpf(cpf);   
             ManipularConta manipularConta = new ManipularConta(cliente);
             manipularConta.setVisible(true);
         } catch (ClienteNaoEncontradoException e) {

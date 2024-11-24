@@ -5,6 +5,8 @@ import sisbanco.entities.Cliente;
 import sisbanco.entities.Conta;
 
 import javax.swing.*;
+import sisbanco.dao.ContaDAO;
+import sisbanco.dao.ContaDAOImpl;
 
 public class ManipularConta extends javax.swing.JFrame {
     // START OF GENERATED CODE
@@ -202,7 +204,11 @@ public class ManipularConta extends javax.swing.JFrame {
     public ManipularConta(Cliente cliente) {
         initComponents();
         this.cliente = cliente;
-        this.contaDoCliente = BancoDeDados.getContaByCliente(cliente);
+        System.out.println("aaa");
+        ContaDAO contaDAO = new ContaDAOImpl();
+        System.out.println("bbb");
+        this.contaDoCliente = contaDAO.getContaByCliente(cliente.getCpf()); 
+        System.out.println("ccc");
     }
 
     private void jButtonSacarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,16 +216,14 @@ public class ManipularConta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Crie uma conta antes de sacar", "Informação", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-
         double valorSaque = Double.parseDouble(txtSaque.getText());
-
+        ContaDAO contaDAO = new ContaDAOImpl();
         if (valorSaque < 0) {
             JOptionPane.showMessageDialog(this, "Não é possível sacar um valor menor que 0", "Informação", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-
         if (this.contaDoCliente.getSaldo() > valorSaque) {
-            this.contaDoCliente.saca(valorSaque);
+            contaDAO.sacar(cliente.getCpf(), valorSaque);
             JOptionPane.showMessageDialog(this, "Saque concluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Saldo indisponível", "Informação", JOptionPane.INFORMATION_MESSAGE);
@@ -227,6 +231,7 @@ public class ManipularConta extends javax.swing.JFrame {
     }
 
     private void jButtonDepositarActionPerformed(java.awt.event.ActionEvent evt) {
+        ContaDAO contaDAO = new ContaDAOImpl();
         if (this.contaDoCliente == null) {
             JOptionPane.showMessageDialog(this, "Crie uma conta antes de depositar", "Informação", JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -239,27 +244,29 @@ public class ManipularConta extends javax.swing.JFrame {
             return;
         }
 
-        this.contaDoCliente.deposita(valorDeposito);
+        contaDAO.depositar(cliente.getCpf(), valorDeposito);
         JOptionPane.showMessageDialog(this, "Deposito concluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void jButtonVerSaldoActionPerformed(java.awt.event.ActionEvent evt) {
+        ContaDAO contaDAO = new ContaDAOImpl();
         if (this.contaDoCliente == null) {
             JOptionPane.showMessageDialog(this, "Crie uma conta antes de ver o saldo", "Informação", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        double saldo = this.contaDoCliente.getSaldo();
+        double saldo = contaDAO.verSaldo(cliente.getCpf());
         JOptionPane.showMessageDialog(this, "Seu saldo é: " + saldo, "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void jButtonRemunerarActionPerformed(java.awt.event.ActionEvent evt) {
+        ContaDAO contaDAO = new ContaDAOImpl();
         if (this.contaDoCliente == null) {
             JOptionPane.showMessageDialog(this, "Crie uma conta antes de remunerar", "Informação", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        this.contaDoCliente.remunera();
+        contaDAO.remunerar(cliente.getCpf());
         JOptionPane.showMessageDialog(this, "Remuneração feita com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
 }

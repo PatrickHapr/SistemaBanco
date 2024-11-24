@@ -13,9 +13,11 @@ import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
 import sisbanco.entities.Cliente;
-import sisbanco.bd.BancoDeDados;
+//import sisbanco.bd.BancoDeDados;
 import static sisbanco.utils.Validador.validaCpf;
 import static sisbanco.utils.Validador.validaRg;
+import sisbanco.dao.ClienteDAOImpl;
+import sisbanco.dao.ClienteDAO;
 
 public class CadastraCliente extends javax.swing.JFrame {
     // START OF GENERATED CODE
@@ -199,10 +201,10 @@ public class CadastraCliente extends javax.swing.JFrame {
     private TableRowSorter<ClienteTableModel> sorter;
     private int linhaClicadaParaAtualizacao = -1;
     private Cliente clienteSelecionadoParaAtualizacao;
-
+    private ClienteDAO clienteDAO = new ClienteDAOImpl();
     public CadastraCliente() {
         initComponents();
-        this.tabModel.setListaContatos(BancoDeDados.getAllClientes());
+        this.tabModel.setListaContatos(clienteDAO.getAllClientes());
         this.clienteSelecionadoParaAtualizacao = null;
         this.linhaClicadaParaAtualizacao = -1;
         this.tabCliente.setModel(tabModel);
@@ -251,15 +253,16 @@ public class CadastraCliente extends javax.swing.JFrame {
         }
         
         Cliente novoCliente = new Cliente(nome, sobreNome, rg, cpf, endereco);
-        BancoDeDados.adicionarCliente(novoCliente);
-        this.tabModel.setListaContatos(BancoDeDados.getAllClientes());
-        this.tabCliente.setRowSelectionInterval(BancoDeDados.getAllClientes().size() - 1, BancoDeDados.getAllClientes().size() - 1);
+        ClienteDAO clienteDAO1 = new ClienteDAOImpl();
+        clienteDAO1.save(novoCliente); 
+        this.tabModel.setListaContatos(clienteDAO1.getAllClientes());
+        this.tabCliente.setRowSelectionInterval(clienteDAO1.getAllClientes().size() - 1, clienteDAO1.getAllClientes().size() - 1);
         this.clienteSelecionadoParaAtualizacao = novoCliente;
-        this.linhaClicadaParaAtualizacao = BancoDeDados.getAllClientes().size() - 1;
+        this.linhaClicadaParaAtualizacao = clienteDAO1.getAllClientes().size() - 1;
     }
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {
-        this.tabModel.setListaContatos(BancoDeDados.getAllClientes());
+        this.tabModel.setListaContatos(clienteDAO.getAllClientes());
         this.clienteSelecionadoParaAtualizacao = null;
         this.linhaClicadaParaAtualizacao = -1;
     }
@@ -270,7 +273,7 @@ public class CadastraCliente extends javax.swing.JFrame {
         this.txtRG.setText("");
         this.txtCPF.setText("");
         this.txtEndereco.setText("");
-        this.tabModel.setListaContatos(BancoDeDados.getAllClientes());
+        this.tabModel.setListaContatos(clienteDAO.getAllClientes());
         this.clienteSelecionadoParaAtualizacao = null;
         this.linhaClicadaParaAtualizacao = -1;
     }
@@ -278,17 +281,22 @@ public class CadastraCliente extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {
         List<Cliente> listaExcluir = getClienteParaExcluirDaTabela();
 
-        if (listaExcluir.isEmpty()){
-            JOptionPane.showMessageDialog(null,"Selecione alguma linha para excluir.\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;            
+        if (listaExcluir.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecione alguma linha para excluir.\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
 
-        int option = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir o(s) cliente(s) selecionado(s)?\nTodas as contas vinculadas serão apagadas.", "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+        int option = JOptionPane.showConfirmDialog(null, 
+            "Tem certeza que deseja excluir o(s) cliente(s) selecionado(s)?\nTodas as contas vinculadas serão apagadas.", 
+            "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+
         if (option == JOptionPane.YES_OPTION) {
             this.tabModel.removeClientes(listaExcluir);
 
-            for (Cliente c : listaExcluir)
-                BancoDeDados.removerCliente(c.getCpf());
+            for (Cliente c : listaExcluir) {
+                // Excluir diretamente pelo CPF
+                clienteDAO.deleteByCpf(c.getCpf());
+            }
 
             this.clienteSelecionadoParaAtualizacao = null;
             this.linhaClicadaParaAtualizacao = -1;
@@ -303,7 +311,7 @@ public class CadastraCliente extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {
         Cliente clienteParaAtualizar = this.getClienteParaAtualizar();
-        BancoDeDados.updateCliente(clienteParaAtualizar);
+        clienteDAO.updateCliente(clienteParaAtualizar);
         this.tabModel.atualizarCliente(this.linhaClicadaParaAtualizacao);
     }
 

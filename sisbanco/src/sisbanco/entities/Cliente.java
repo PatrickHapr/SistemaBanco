@@ -1,6 +1,7 @@
 package sisbanco.entities;
 
 public class Cliente {
+    private int id;
     private String nome;
     private String sobreNome;
     private String rg;
@@ -53,5 +54,12 @@ public class Cliente {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
