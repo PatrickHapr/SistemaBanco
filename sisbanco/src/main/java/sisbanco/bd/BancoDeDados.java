@@ -1,8 +1,7 @@
 package sisbanco.bd;
 
-import sisbanco.entities.Cliente;
-import sisbanco.entities.Conta;
-import sisbanco.entities.ContaCorrente;
+import sisbanco.models.entities.Cliente;
+import sisbanco.models.entities.Conta;
 import sisbanco.exceptions.ClienteJaTemContaException;
 import sisbanco.exceptions.ClienteNaoEncontradoException;
 

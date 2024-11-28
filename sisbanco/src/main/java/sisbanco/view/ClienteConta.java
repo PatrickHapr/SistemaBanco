@@ -7,15 +7,14 @@ package sisbanco.view;
 import java.util.List;
 import java.util.UUID;
 import javax.swing.JOptionPane;
-import sisbanco.entities.Cliente;
-import sisbanco.entities.ContaCorrente;
-import sisbanco.entities.ContaInvestimento;
-import sisbanco.bd.BancoDeDados;
+import sisbanco.models.entities.Cliente;
+import sisbanco.models.entities.ContaCorrente;
+import sisbanco.models.entities.ContaInvestimento;
 import sisbanco.exceptions.ClienteJaTemContaException;
-import sisbanco.dao.ClienteDAOImpl;
-import sisbanco.dao.ClienteDAO;
-import sisbanco.dao.ContaDAO;
-import sisbanco.dao.ContaDAOImpl;
+import sisbanco.models.dao.ClienteDAOImpl;
+import sisbanco.models.dao.ClienteDAO;
+import sisbanco.models.dao.ContaDAO;
+import sisbanco.models.dao.ContaDAOImpl;
 
 /**
  *

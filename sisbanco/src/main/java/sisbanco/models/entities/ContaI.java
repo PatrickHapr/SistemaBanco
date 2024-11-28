@@ -1,4 +1,4 @@
-package sisbanco.entities;
+package sisbanco.models.entities;
 
 public interface ContaI {
     public boolean deposita(double valor);

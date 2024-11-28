@@ -1,12 +1,11 @@
 package sisbanco.view;
 
-import sisbanco.bd.BancoDeDados;
-import sisbanco.entities.Cliente;
-import sisbanco.entities.Conta;
+import sisbanco.models.entities.Cliente;
+import sisbanco.models.entities.Conta;
 
 import javax.swing.*;
-import sisbanco.dao.ContaDAO;
-import sisbanco.dao.ContaDAOImpl;
+import sisbanco.models.dao.ContaDAO;
+import sisbanco.models.dao.ContaDAOImpl;
 
 public class ManipularConta extends javax.swing.JFrame {
     // START OF GENERATED CODE

@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package sisbanco.dao;
+package sisbanco.models.dao;
 
 import sisbanco.bd.DatabaseConnection;
-import sisbanco.entities.Cliente;
+import sisbanco.models.entities.Cliente;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

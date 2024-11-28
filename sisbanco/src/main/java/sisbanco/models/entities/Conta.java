@@ -1,4 +1,4 @@
-package sisbanco.entities;
+package sisbanco.models.entities;
 
 public abstract class Conta implements ContaI {
     protected Cliente dono;

@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
-import sisbanco.entities.Cliente;
+import sisbanco.models.entities.Cliente;
 //import sisbanco.bd.BancoDeDados;
 import static sisbanco.utils.Validador.validaCpf;
 import static sisbanco.utils.Validador.validaRg;
-import sisbanco.dao.ClienteDAOImpl;
-import sisbanco.dao.ClienteDAO;
+import sisbanco.models.dao.ClienteDAOImpl;
+import sisbanco.models.dao.ClienteDAO;
 
 public class CadastraCliente extends javax.swing.JFrame {
     // START OF GENERATED CODE

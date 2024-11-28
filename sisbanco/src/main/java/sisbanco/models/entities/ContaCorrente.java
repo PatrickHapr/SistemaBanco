@@ -1,4 +1,4 @@
-package sisbanco.entities;
+package sisbanco.models.entities;
 
 public class ContaCorrente extends Conta{
     private double limite;

@@ -2,10 +2,9 @@ package sisbanco.view;
 
 import javax.swing.*;
 
-import sisbanco.bd.BancoDeDados;
-import sisbanco.dao.ClienteDAO;
-import sisbanco.dao.ClienteDAOImpl;
-import sisbanco.entities.Cliente;
+import sisbanco.models.dao.ClienteDAO;
+import sisbanco.models.dao.ClienteDAOImpl;
+import sisbanco.models.entities.Cliente;
 import sisbanco.exceptions.ClienteNaoEncontradoException;
 import sisbanco.utils.Validador;
 
