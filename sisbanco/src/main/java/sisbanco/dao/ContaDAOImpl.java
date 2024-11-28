@@ -18,7 +18,7 @@ public class ContaDAOImpl implements ContaDAO {
 
     @Override
     public void saveContaCorrente(ContaCorrente conta) {
-        String sql = "INSERT INTO ACCOUNT (OWNER, BALANCE, TYPE, LIMITE) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO account (OWNER, BALANCE, TYPE, LIMITE) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -35,7 +35,7 @@ public class ContaDAOImpl implements ContaDAO {
 
     @Override
     public void saveContaInvestimento(ContaInvestimento conta) {
-        String sql = "INSERT INTO ACCOUNT (OWNER, BALANCE, TYPE, MINIMUM_BALANCE, INITIAL_DEPOSIT) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO account (OWNER, BALANCE, TYPE, MINIMUM_BALANCE, INITIAL_DEPOSIT) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -53,7 +53,7 @@ public class ContaDAOImpl implements ContaDAO {
 
     @Override
     public ContaCorrente findById(int id) {
-        String sql = "SELECT * FROM ACCOUNT WHERE ID = ?";
+        String sql = "SELECT * FROM account WHERE ID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -61,7 +61,7 @@ public class ContaDAOImpl implements ContaDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Cliente cliente = findClienteByCpf(rs.getString("OWNER"));
+                Cliente cliente = this.findClienteByCpf(rs.getString("OWNER"));
                 return new ContaCorrente(
                         cliente,
                         rs.getInt("ID"),
@@ -76,7 +76,7 @@ public class ContaDAOImpl implements ContaDAO {
     }
     @Override
     public void updateBalance(int id, double novoSaldo) {
-        String sql = "UPDATE ACCOUNT SET BALANCE = ? WHERE ID = ?";
+        String sql = "UPDATE account SET BALANCE = ? WHERE ID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -91,7 +91,7 @@ public class ContaDAOImpl implements ContaDAO {
 
     @Override
     public void deleteById(int id) {
-        String sql = "DELETE FROM ACCOUNT WHERE ID = ?";
+        String sql = "DELETE FROM account WHERE ID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -103,7 +103,7 @@ public class ContaDAOImpl implements ContaDAO {
         }
     }
     private Cliente findClienteByCpf(String cpf) {
-        String sql = "SELECT * FROM USERS WHERE CPF = ?";
+        String sql = "SELECT * FROM users WHERE CPF = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -126,7 +126,7 @@ public class ContaDAOImpl implements ContaDAO {
     }
     @Override
     public ContaCorrente getContaByCliente(String cpf) {
-        String sql = "SELECT * FROM ACCOUNT WHERE OWNER = ?";
+        String sql = "SELECT * FROM account WHERE OWNER = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -149,7 +149,7 @@ public class ContaDAOImpl implements ContaDAO {
     }
     @Override
     public void sacar(String cpf, double valor) {
-        String sql = "UPDATE ACCOUNT SET BALANCE = BALANCE - ? WHERE OWNER = ? AND BALANCE >= ?";
+        String sql = "UPDATE account SET BALANCE = BALANCE - ? WHERE OWNER = ? AND BALANCE >= ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -172,7 +172,7 @@ public class ContaDAOImpl implements ContaDAO {
             throw new IllegalArgumentException("O valor para depósito deve ser maior que zero.");
         }
 
-        String sql = "UPDATE ACCOUNT SET BALANCE = BALANCE + ? WHERE OWNER = ?";
+        String sql = "UPDATE account SET BALANCE = BALANCE + ? WHERE OWNER = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -190,7 +190,7 @@ public class ContaDAOImpl implements ContaDAO {
 
     @Override
     public double verSaldo(String cpf) {
-        String sql = "SELECT BALANCE FROM ACCOUNT WHERE OWNER = ?";
+        String sql = "SELECT BALANCE FROM account WHERE OWNER = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -209,7 +209,7 @@ public class ContaDAOImpl implements ContaDAO {
 
     @Override
     public void remunerar(String cpf) {
-        String sql = "UPDATE ACCOUNT SET BALANCE = BALANCE* 1.01 WHERE OWNER = ?";
+        String sql = "UPDATE account SET BALANCE = BALANCE* 1.01 WHERE OWNER = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 

@@ -1,0 +1,11 @@
+services:
+  tads_lpoodois_trabfinal:
+    image: mysql:8.4
+    container_name: tads_lpoodois_trabfinal
+    ports:
+      - '6531:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 123mudar
+      MYSQL_USER: 123mudar
+      MYSQL_PASSWORD: 123mudar
+      MYSQL_DATABASE: tads_lpoodois
