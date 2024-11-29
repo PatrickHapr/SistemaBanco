@@ -1,5 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package sisbanco.view;
 
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import sisbanco.models.entities.Cliente;
 import sisbanco.models.entities.Conta;
 
@@ -7,184 +13,388 @@ import javax.swing.*;
 import sisbanco.models.dao.ContaDAO;
 import sisbanco.models.dao.ContaDAOImpl;
 
-import java.awt.event.ActionListener;
-
+/**
+ *
+ * @author Matheus
+ */
 public class ManipularConta extends javax.swing.JFrame {
-    // START OF GENERATED CODE
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
-
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        menu = new javax.swing.JPanel();
-        btnSaque = new javax.swing.JButton();
-        btnSaldo = new javax.swing.JButton();
-        btnRemunera = new javax.swing.JButton();
-        btnDeposito = new javax.swing.JButton();
-        saque = new javax.swing.JPanel();
-        valorSaque = new javax.swing.JLabel();
-        btnSacar = new javax.swing.JButton();
-        txtSaque = new javax.swing.JTextField();
-        deposito = new javax.swing.JPanel();
-        btnDepositar = new javax.swing.JButton();
-        valorDeposito = new javax.swing.JLabel();
-        txtDeposito = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        btnSaque.setText("Saque");
-
-        btnSaldo.setText("Ver Saldo");
-
-        btnRemunera.setText("Remunerar");
-
-        btnDeposito.setText("Depósito");
-
-        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
-        menu.setLayout(menuLayout);
-        menuLayout.setHorizontalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRemunera, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
-        );
-        menuLayout.setVerticalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(btnSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(btnSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(btnRemunera, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-        );
-
-        jTabbedPane1.addTab("Menu", menu);
-
-        valorSaque.setText("Valor");
-
-        btnSacar.setText("Sacar");
-
-        javax.swing.GroupLayout saqueLayout = new javax.swing.GroupLayout(saque);
-        saque.setLayout(saqueLayout);
-        saqueLayout.setHorizontalGroup(
-            saqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(saqueLayout.createSequentialGroup()
-                .addGroup(saqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(saqueLayout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(valorSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(saqueLayout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(btnSacar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(106, Short.MAX_VALUE))
-        );
-        saqueLayout.setVerticalGroup(
-            saqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(saqueLayout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addGroup(saqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valorSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addComponent(btnSacar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Saque", saque);
-
-        btnDepositar.setText("Depositar");
-
-        valorDeposito.setText("Valor");
-
-        javax.swing.GroupLayout depositoLayout = new javax.swing.GroupLayout(deposito);
-        deposito.setLayout(depositoLayout);
-        depositoLayout.setHorizontalGroup(
-            depositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, depositoLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(valorDeposito)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                .addComponent(txtDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
-            .addGroup(depositoLayout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(btnDepositar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        depositoLayout.setVerticalGroup(
-            depositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, depositoLayout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
-                .addGroup(depositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valorDeposito)
-                    .addComponent(txtDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addComponent(btnDepositar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
-        );
-
-        jTabbedPane1.addTab("Depósito", deposito);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-        );
-
-        pack();
-
-        btnDeposito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTabbedPane1.setSelectedIndex(2); // Change to the "Depósito" tab
-            }
-        });
-
-        btnSaque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTabbedPane1.setSelectedIndex(1); // Change to the "Saque" tab
-            }
-        });
-    }
-
-    private javax.swing.JButton btnDepositar;
-    private javax.swing.JButton btnDeposito;
-    private javax.swing.JButton btnRemunera;
-    private javax.swing.JButton btnSacar;
-    private javax.swing.JButton btnSaldo;
-    private javax.swing.JButton btnSaque;
-    private javax.swing.JPanel deposito;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JPanel menu;
-    private javax.swing.JPanel saque;
-    private javax.swing.JTextField txtDeposito;
-    private javax.swing.JTextField txtSaque;
-    private javax.swing.JLabel valorDeposito;
-    private javax.swing.JLabel valorSaque;
-    // END OF GENERATED CODE
 
     private Cliente cliente;
     private Conta contaDoCliente;
 
     public ManipularConta() {
         initComponents();
+        setTitle("Manipular Conta");
+        setLocationRelativeTo(null);
     }
 
-    public void setCliente(Cliente cliente) {
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel4 = new javax.swing.JPanel();
+        Tabs = new javax.swing.JTabbedPane();
+        Menu = new javax.swing.JPanel();
+        btnAcaoSaldo = new javax.swing.JButton();
+        btnAcaoDeposito = new javax.swing.JButton();
+        btnAcaoRemunerar = new javax.swing.JButton();
+        btnAcaoSaque = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        AcaoTitulo = new javax.swing.JLabel();
+        Saque = new javax.swing.JPanel();
+        SaqueTitulo = new javax.swing.JLabel();
+        btnSacar = new javax.swing.JButton();
+        inputSaqueValor = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        SaqueValor = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        Deposito = new javax.swing.JPanel();
+        DepositoTitulo = new javax.swing.JLabel();
+        btnDepositar = new javax.swing.JButton();
+        inputDepositarValor = new javax.swing.JTextField();
+        jPanel11 = new javax.swing.JPanel();
+        DepositarValor = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel4.setBackground(new java.awt.Color(0, 0, 51));
+
+        Tabs.setBackground(new java.awt.Color(0, 0, 51));
+        Tabs.setForeground(new java.awt.Color(255, 255, 255));
+        Tabs.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        Menu.setBackground(new java.awt.Color(43, 48, 64));
+
+        btnAcaoSaldo.setBackground(new java.awt.Color(90, 36, 166));
+        btnAcaoSaldo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAcaoSaldo.setForeground(new java.awt.Color(255, 255, 255));
+        btnAcaoSaldo.setText("Ver Saldo");
+
+        btnAcaoDeposito.setBackground(new java.awt.Color(90, 36, 166));
+        btnAcaoDeposito.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAcaoDeposito.setForeground(new java.awt.Color(255, 255, 255));
+        btnAcaoDeposito.setText("Depósito");
+        btnAcaoDeposito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcaoDepositoActionPerformed(evt);
+            }
+        });
+
+        btnAcaoRemunerar.setBackground(new java.awt.Color(90, 36, 166));
+        btnAcaoRemunerar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAcaoRemunerar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAcaoRemunerar.setText("Remunerar");
+
+        btnAcaoSaque.setBackground(new java.awt.Color(90, 36, 166));
+        btnAcaoSaque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAcaoSaque.setForeground(new java.awt.Color(255, 255, 255));
+        btnAcaoSaque.setText("Saque");
+        btnAcaoSaque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcaoSaqueActionPerformed(evt);
+            }
+        });
+
+        jPanel5.setBackground(new java.awt.Color(189, 242, 174));
+        jPanel5.setPreferredSize(new java.awt.Dimension(45, 45));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 37, Short.MAX_VALUE)
+        );
+
+        jPanel9.setBackground(new java.awt.Color(189, 242, 174));
+        jPanel9.setPreferredSize(new java.awt.Dimension(45, 45));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 37, Short.MAX_VALUE)
+        );
+
+        AcaoTitulo.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        AcaoTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        AcaoTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AcaoTitulo.setText("Ações");
+
+        javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
+        Menu.setLayout(MenuLayout);
+        MenuLayout.setHorizontalGroup(
+            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAcaoSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAcaoSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(87, 87, 87)
+                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAcaoRemunerar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAcaoDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(AcaoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        MenuLayout.setVerticalGroup(
+            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(AcaoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAcaoDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAcaoSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAcaoSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAcaoRemunerar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 28, Short.MAX_VALUE))))
+        );
+
+        Tabs.addTab("Menu", Menu);
+        Menu.getAccessibleContext().setAccessibleName("Menu");
+
+        Saque.setBackground(new java.awt.Color(43, 48, 64));
+
+        SaqueTitulo.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        SaqueTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        SaqueTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SaqueTitulo.setText("Insira o valor do Saque");
+
+        btnSacar.setBackground(new java.awt.Color(90, 36, 166));
+        btnSacar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSacar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSacar.setText("Sacar");
+
+        jPanel10.setBackground(new java.awt.Color(189, 242, 174));
+        jPanel10.setPreferredSize(new java.awt.Dimension(45, 45));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 37, Short.MAX_VALUE)
+        );
+
+        SaqueValor.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        SaqueValor.setForeground(new java.awt.Color(255, 255, 255));
+        SaqueValor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SaqueValor.setText("Valor :");
+
+        jPanel12.setBackground(new java.awt.Color(189, 242, 174));
+        jPanel12.setPreferredSize(new java.awt.Dimension(45, 45));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 37, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout SaqueLayout = new javax.swing.GroupLayout(Saque);
+        Saque.setLayout(SaqueLayout);
+        SaqueLayout.setHorizontalGroup(
+            SaqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SaqueLayout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(SaqueLayout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addGroup(SaqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SaqueLayout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(btnSacar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(SaqueLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(SaqueValor, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputSaqueValor, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SaqueTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        SaqueLayout.setVerticalGroup(
+            SaqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SaqueLayout.createSequentialGroup()
+                .addGroup(SaqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SaqueLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(SaqueTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(SaqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SaqueValor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputSaqueValor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSacar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        Tabs.addTab("Saque", Saque);
+        Saque.getAccessibleContext().setAccessibleName("Saque");
+
+        Deposito.setBackground(new java.awt.Color(43, 48, 64));
+
+        DepositoTitulo.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        DepositoTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        DepositoTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        DepositoTitulo.setText("Insira o valor do Depósito");
+
+        btnDepositar.setBackground(new java.awt.Color(90, 36, 166));
+        btnDepositar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDepositar.setForeground(new java.awt.Color(255, 255, 255));
+        btnDepositar.setText("Depositar");
+
+        jPanel11.setBackground(new java.awt.Color(189, 242, 174));
+        jPanel11.setPreferredSize(new java.awt.Dimension(45, 45));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 37, Short.MAX_VALUE)
+        );
+
+        DepositarValor.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        DepositarValor.setForeground(new java.awt.Color(255, 255, 255));
+        DepositarValor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        DepositarValor.setText("Valor : ");
+
+        jPanel13.setBackground(new java.awt.Color(189, 242, 174));
+        jPanel13.setPreferredSize(new java.awt.Dimension(45, 45));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 37, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout DepositoLayout = new javax.swing.GroupLayout(Deposito);
+        Deposito.setLayout(DepositoLayout);
+        DepositoLayout.setHorizontalGroup(
+            DepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DepositoLayout.createSequentialGroup()
+                .addGroup(DepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(DepositoLayout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addComponent(btnDepositar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(DepositoLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(DepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(DepositoLayout.createSequentialGroup()
+                        .addComponent(DepositarValor, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(inputDepositarValor))
+                    .addComponent(DepositoTitulo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        DepositoLayout.setVerticalGroup(
+            DepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DepositoLayout.createSequentialGroup()
+                .addGroup(DepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DepositoLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(DepositoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DepositarValor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(DepositoLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(inputDepositarValor)))
+                .addGap(18, 18, 18)
+                .addComponent(btnDepositar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        Tabs.addTab("Depósito", Deposito);
+        Deposito.getAccessibleContext().setAccessibleName("Deposito");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(Tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Tabs)
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAcaoSaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoSaqueActionPerformed
+        Tabs.setSelectedIndex(1);
+    }//GEN-LAST:event_btnAcaoSaqueActionPerformed
+
+    private void btnAcaoDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoDepositoActionPerformed
+        Tabs.setSelectedIndex(2);
+    }//GEN-LAST:event_btnAcaoDepositoActionPerformed
+
+     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -199,18 +409,17 @@ public class ManipularConta extends javax.swing.JFrame {
     public Cliente getCliente() {
         return this.cliente;
     }
-
-
+    
     public void sacarActionListener(ActionListener listener) {
         this.btnSacar.addActionListener(listener);
     }
 
     public void remunerarActionListener(ActionListener listener) {
-        this.btnRemunera.addActionListener(listener);
+        this.btnAcaoRemunerar.addActionListener(listener);
     }
 
     public void verSaldoActionListener(ActionListener listener) {
-        this.btnSaldo.addActionListener(listener);
+        this.btnAcaoSaldo.addActionListener(listener);
     }
 
     public void depositarActionListener(ActionListener listener) {
@@ -222,7 +431,7 @@ public class ManipularConta extends javax.swing.JFrame {
         if (this.contaDoCliente == null)
             throw new Exception("Crie uma conta antes de sacar");
 
-        double valorSaque = Double.parseDouble(txtSaque.getText());
+        double valorSaque = Double.parseDouble(inputSaqueValor.getText());
 
         if (valorSaque < 0)
             throw new Exception("Não é possível sacar um valor menor que 0");
@@ -237,11 +446,43 @@ public class ManipularConta extends javax.swing.JFrame {
         if (this.contaDoCliente == null)
             throw new Exception("Crie uma conta antes de sacar");
 
-        double valorDeposito = Double.parseDouble(txtDeposito.getText());
+        double valorDeposito = Double.parseDouble(inputDepositarValor.getText());
 
         if (valorDeposito < 0)
             throw new Exception("Não é possível depositar um valor menor que 0");
 
         return valorDeposito;
     }
+    
+    /**
+     * @param args the command line arguments
+     */
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AcaoTitulo;
+    private javax.swing.JLabel DepositarValor;
+    private javax.swing.JPanel Deposito;
+    private javax.swing.JLabel DepositoTitulo;
+    private javax.swing.JPanel Menu;
+    private javax.swing.JPanel Saque;
+    private javax.swing.JLabel SaqueTitulo;
+    private javax.swing.JLabel SaqueValor;
+    private javax.swing.JTabbedPane Tabs;
+    private javax.swing.JButton btnAcaoDeposito;
+    private javax.swing.JButton btnAcaoRemunerar;
+    private javax.swing.JButton btnAcaoSaldo;
+    private javax.swing.JButton btnAcaoSaque;
+    private javax.swing.JButton btnDepositar;
+    private javax.swing.JButton btnSacar;
+    private javax.swing.JTextField inputDepositarValor;
+    private javax.swing.JTextField inputSaqueValor;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel9;
+    // End of variables declaration//GEN-END:variables
 }
