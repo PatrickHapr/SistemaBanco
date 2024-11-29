@@ -18,7 +18,7 @@ public class ContaDAOImpl implements ContaDAO {
 
     @Override
     public void saveContaCorrente(ContaCorrente conta) {
-        String sql = "INSERT INTO ACCOUNT (OWNER, BALANCE, TYPE, LIMITE) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO ACCOUNT (OWNER, BALANCE, ACCOUNT_TYPE, LIMITE) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -35,7 +35,7 @@ public class ContaDAOImpl implements ContaDAO {
 
     @Override
     public void saveContaInvestimento(ContaInvestimento conta) {
-        String sql = "INSERT INTO ACCOUNT (OWNER, BALANCE, TYPE, MINIMUM_BALANCE, INITIAL_DEPOSIT) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ACCOUNT (OWNER, BALANCE, ACCOUNT_TYPE, MINIMUM_BALANCE, INITIAL_DEPOSIT) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
