@@ -7,6 +7,8 @@ import javax.swing.*;
 import sisbanco.models.dao.ContaDAO;
 import sisbanco.models.dao.ContaDAOImpl;
 
+import java.awt.event.ActionListener;
+
 public class ManipularConta extends javax.swing.JFrame {
     // START OF GENERATED CODE
     @SuppressWarnings("unchecked")
@@ -146,34 +148,12 @@ public class ManipularConta extends javax.swing.JFrame {
 
         pack();
 
-        btnSacar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSacarActionPerformed(evt);
-            }
-        });
-
-        btnDepositar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDepositarActionPerformed(evt);
-            }
-        });
-
-        btnSaldo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVerSaldoActionPerformed(evt);
-            }
-        });
-
-        btnRemunera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemunerarActionPerformed(evt);
-            }
-        });
         btnDeposito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTabbedPane1.setSelectedIndex(2); // Change to the "Depósito" tab
             }
         });
+
         btnSaque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTabbedPane1.setSelectedIndex(1); // Change to the "Saque" tab
@@ -197,75 +177,71 @@ public class ManipularConta extends javax.swing.JFrame {
     private javax.swing.JLabel valorSaque;
     // END OF GENERATED CODE
 
-    private final Cliente cliente;
-    private final Conta contaDoCliente;
+    private Cliente cliente;
+    private Conta contaDoCliente;
 
-    public ManipularConta(Cliente cliente) {
+    public ManipularConta() {
         initComponents();
+    }
+
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-        System.out.println("aaa");
-        ContaDAO contaDAO = new ContaDAOImpl();
-        System.out.println("bbb");
-        this.contaDoCliente = contaDAO.getContaByCliente(cliente.getCpf()); 
-        System.out.println("ccc");
     }
 
-    private void jButtonSacarActionPerformed(java.awt.event.ActionEvent evt) {
-        if (this.contaDoCliente == null) {
-            JOptionPane.showMessageDialog(this, "Crie uma conta antes de sacar", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
+    public void setContaDoCliente(Conta conta) {
+        this.contaDoCliente = conta;
+    }
+
+    public Conta getContaDoCliente() {
+        return this.contaDoCliente;
+    }
+
+    public Cliente getCliente() {
+        return this.cliente;
+    }
+
+
+    public void sacarActionListener(ActionListener listener) {
+        this.btnSacar.addActionListener(listener);
+    }
+
+    public void remunerarActionListener(ActionListener listener) {
+        this.btnRemunera.addActionListener(listener);
+    }
+
+    public void verSaldoActionListener(ActionListener listener) {
+        this.btnSaldo.addActionListener(listener);
+    }
+
+    public void depositarActionListener(ActionListener listener) {
+        this.btnDepositar.addActionListener(listener);
+    }
+
+
+    public double getValorSaque() throws Exception {
+        if (this.contaDoCliente == null)
+            throw new Exception("Crie uma conta antes de sacar");
+
         double valorSaque = Double.parseDouble(txtSaque.getText());
-        ContaDAO contaDAO = new ContaDAOImpl();
-        if (valorSaque < 0) {
-            JOptionPane.showMessageDialog(this, "Não é possível sacar um valor menor que 0", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if (this.contaDoCliente.getSaldo() > valorSaque) {
-            contaDAO.sacar(cliente.getCpf(), valorSaque);
-            JOptionPane.showMessageDialog(this, "Saque concluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Saldo indisponível", "Informação", JOptionPane.INFORMATION_MESSAGE);
-        }
+
+        if (valorSaque < 0)
+            throw new Exception("Não é possível sacar um valor menor que 0");
+
+        if (this.contaDoCliente.getSaldo() < valorSaque)
+            throw new Exception("Saldo indisponível");
+
+        return valorSaque;
     }
 
-    private void jButtonDepositarActionPerformed(java.awt.event.ActionEvent evt) {
-        ContaDAO contaDAO = new ContaDAOImpl();
-        if (this.contaDoCliente == null) {
-            JOptionPane.showMessageDialog(this, "Crie uma conta antes de depositar", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
+    public double getValorDeposito() throws Exception {
+        if (this.contaDoCliente == null)
+            throw new Exception("Crie uma conta antes de sacar");
 
         double valorDeposito = Double.parseDouble(txtDeposito.getText());
 
-        if (valorDeposito < 0) {
-            JOptionPane.showMessageDialog(this, "Não é possível depositar um valor menor que 0", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
+        if (valorDeposito < 0)
+            throw new Exception("Não é possível depositar um valor menor que 0");
 
-        contaDAO.depositar(cliente.getCpf(), valorDeposito);
-        JOptionPane.showMessageDialog(this, "Deposito concluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private void jButtonVerSaldoActionPerformed(java.awt.event.ActionEvent evt) {
-        ContaDAO contaDAO = new ContaDAOImpl();
-        if (this.contaDoCliente == null) {
-            JOptionPane.showMessageDialog(this, "Crie uma conta antes de ver o saldo", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-
-        double saldo = contaDAO.verSaldo(cliente.getCpf());
-        JOptionPane.showMessageDialog(this, "Seu saldo é: " + saldo, "Informação", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private void jButtonRemunerarActionPerformed(java.awt.event.ActionEvent evt) {
-        ContaDAO contaDAO = new ContaDAOImpl();
-        if (this.contaDoCliente == null) {
-            JOptionPane.showMessageDialog(this, "Crie uma conta antes de remunerar", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-
-        contaDAO.remunerar(cliente.getCpf());
-        JOptionPane.showMessageDialog(this, "Remuneração feita com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        return valorDeposito;
     }
 }

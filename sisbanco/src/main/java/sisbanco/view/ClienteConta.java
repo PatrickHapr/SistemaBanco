@@ -4,9 +4,12 @@
  */
 package sisbanco.view;
 
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.UUID;
 import javax.swing.JOptionPane;
+
+import sisbanco.controllers.Controller;
 import sisbanco.models.entities.Cliente;
 import sisbanco.models.entities.ContaCorrente;
 import sisbanco.models.entities.ContaInvestimento;
@@ -33,9 +36,8 @@ public class ClienteConta extends javax.swing.JFrame {
         initComponents();
         ContaInvestimento.setVisible(false);
         ContaCorrente.setVisible(false);
-        carregarClientes();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,7 +46,6 @@ public class ClienteConta extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         Cliente = new javax.swing.JLabel();
         ContaCorrente = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -77,11 +78,6 @@ public class ClienteConta extends javax.swing.JFrame {
         jLabel4.setText("Limite");
 
         jButton3.setText("Criar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout ContaCorrenteLayout = new javax.swing.GroupLayout(ContaCorrente);
         ContaCorrente.setLayout(ContaCorrenteLayout);
@@ -126,11 +122,6 @@ public class ClienteConta extends javax.swing.JFrame {
         jLabel3.setText("Depósito Mínimo");
 
         jButton1.setText("Criar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Depósito Inicial");
@@ -244,19 +235,11 @@ public class ClienteConta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void carregarClientes() {
-        try {
-            ClienteDAOImpl clienteDAO = new ClienteDAOImpl(); 
-            List<Cliente> clientes = clienteDAO.getAllClientes(); 
-
-            for (Cliente cliente : clientes) {
-                ComboCliente.addItem(cliente.getNome());
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar clientes: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+    public void carregarClientes(List<Cliente> clientes) {
+        for (Cliente cliente : clientes)
+            ComboCliente.addItem(cliente.getNome());
     }
+
     private void VincularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VincularActionPerformed
         if ("Conta Corrente".equals(nameOfSelectedAccount)) {
             ContaInvestimento.setVisible(false);
@@ -267,93 +250,13 @@ public class ClienteConta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_VincularActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        double montanteMinimo = Double.parseDouble(MM.getText());
-        double depositoMinimo = Double.parseDouble(DMI.getText());
-        double depositoInicial = Double.parseDouble(DII.getText());
-        int numeroGerado = (int) gerarNumeroAleatorio();
-        try {
-            ClienteDAO clienteDAO = new ClienteDAOImpl();
-            Cliente cliente = (Cliente) clienteDAO.findClientesByName(this.nameOfSelectedClient);
-            ContaInvestimento novaContaInvestimento = new ContaInvestimento(cliente, 
-                    numeroGerado, depositoInicial, montanteMinimo, depositoMinimo);
-            ContaDAO contaDAO = new ContaDAOImpl();
-            contaDAO.saveContaInvestimento(novaContaInvestimento);
-            JOptionPane.showMessageDialog(null, "Conta de investimento criada com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-        } catch (ClienteJaTemContaException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        double depositoInicial = Double.parseDouble(DIC.getText());
-        double limite = Double.parseDouble(LC.getText());
-        int numeroGerado = (int) gerarNumeroAleatorio();
-        try {
-            ClienteDAO clienteDAO = new ClienteDAOImpl();
-            Cliente cliente = (Cliente) clienteDAO.findClientesByName(this.nameOfSelectedClient);
-
-            ContaCorrente novaContaCorrente = new ContaCorrente(cliente, numeroGerado, depositoInicial, limite);
-
-            ContaDAO contaDAO = new ContaDAOImpl();
-            contaDAO.saveContaCorrente(novaContaCorrente);
-
-            JOptionPane.showMessageDialog(null, "Conta corrente criada com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-        } catch (ClienteJaTemContaException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void ComboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboClienteActionPerformed
         this.nameOfSelectedClient = (String) ComboCliente.getSelectedItem();
-        System.out.println(this.nameOfSelectedClient);
     }//GEN-LAST:event_ComboClienteActionPerformed
 
     private void ComboContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboContaActionPerformed
         this.nameOfSelectedAccount = (String) ComboConta.getSelectedItem();
     }//GEN-LAST:event_ComboContaActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteConta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteConta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteConta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClienteConta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClienteConta().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Cliente;
@@ -376,6 +279,39 @@ public class ClienteConta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
+
+    public String getNameOfSelectedClient() {
+        return this.nameOfSelectedClient;
+    }
+
+    public ContaInvestimento getContaInvestimentoParaCriar() {
+        double montanteMinimo = Double.parseDouble(MM.getText());
+        double depositoMinimo = Double.parseDouble(DMI.getText());
+        double depositoInicial = Double.parseDouble(DII.getText());
+        int numeroGerado = (int) gerarNumeroAleatorio();
+
+        return new ContaInvestimento(
+                null, numeroGerado, depositoInicial, montanteMinimo, depositoMinimo
+        );
+    }
+
+    public ContaCorrente getContaCorrenteParaCriar() {
+        double depositoInicial = Double.parseDouble(DIC.getText());
+        double limite = Double.parseDouble(LC.getText());
+        int numeroGerado = (int) gerarNumeroAleatorio();
+
+        return new ContaCorrente(null, numeroGerado, depositoInicial, limite);
+    }
+
+
+    public void addCriarContaInvestimentoButtonListener(ActionListener listener) {
+        this.jButton1.addActionListener(listener);
+    }
+
+    public void addCriarContaCorrenteListener(ActionListener listener) {
+        this.jButton3.addActionListener(listener);
+    }
+
 
     public long gerarNumeroAleatorio() {
         return Math.abs(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE) % 1000000; 

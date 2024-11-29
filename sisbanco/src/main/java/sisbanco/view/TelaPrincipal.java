@@ -1,5 +1,11 @@
 package sisbanco.view;
 
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+
 public class TelaPrincipal extends javax.swing.JFrame {
     // START OF GENERATED CODE
     public TelaPrincipal() {
@@ -19,25 +25,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Banco Tadinhos");
 
         jButton1.setText("Criar Cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("Criar Conta");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jButton3.setText("Manipular Conta");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,49 +60,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
     }
 
-    public static void main(String[] args) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaPrincipal().setVisible(true);
-            }
-        });
-    }
-
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     // END OF GENERATED CODE
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        CadastraCliente telaCadastro = new CadastraCliente();
-        telaCadastro.setVisible(true);
+    public void addCriarClienteListener(ActionListener listener) {
+        this.jButton1.addActionListener(listener);
     }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        ClienteConta telaContaCliente = new ClienteConta();
-        telaContaCliente.setVisible(true);
+    public void addCriarContaListener(ActionListener listener) {
+        this.jButton2.addActionListener(listener);
     }
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        SelecionarCpf telaSelecionarCpf = new SelecionarCpf();
-        telaSelecionarCpf.setVisible(true);
+    public void addManipularContaListener(ActionListener listener) {
+        this.jButton3.addActionListener(listener);
+    }
+
+    public void initView() {
+        java.awt.EventQueue.invokeLater(() ->  this.setVisible(true));
     }
 }

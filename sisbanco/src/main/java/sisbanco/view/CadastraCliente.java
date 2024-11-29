@@ -4,14 +4,17 @@
  */
 package sisbanco.view;
 
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
+import java.util.Map;
+import javax.swing.*;
 import javax.swing.table.TableRowSorter;
+
+import sisbanco.controllers.Controller;
 import sisbanco.models.entities.Cliente;
 //import sisbanco.bd.BancoDeDados;
 import static sisbanco.utils.Validador.validaCpf;
@@ -47,11 +50,6 @@ public class CadastraCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnCadastrar.setText("Cadastrar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Nome");
 
@@ -64,11 +62,6 @@ public class CadastraCliente extends javax.swing.JFrame {
         jLabel5.setText("Endereço");
 
         btnListar.setText("Listar");
-        btnListar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarActionPerformed(evt);
-            }
-        });
 
         tabCliente.setModel(tabModel);
         tabCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -79,25 +72,10 @@ public class CadastraCliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabCliente);
 
         btnAtualizar.setText("Atualizar");
-        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarActionPerformed(evt);
-            }
-        });
 
         btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
 
         btnLimpar.setText("Limpar");
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,10 +179,13 @@ public class CadastraCliente extends javax.swing.JFrame {
     private TableRowSorter<ClienteTableModel> sorter;
     private int linhaClicadaParaAtualizacao = -1;
     private Cliente clienteSelecionadoParaAtualizacao;
-    private ClienteDAO clienteDAO = new ClienteDAOImpl();
+
     public CadastraCliente() {
         initComponents();
-        this.tabModel.setListaContatos(clienteDAO.getAllClientes());
+    }
+
+    public void inicializarView(List<Cliente> clientes) {
+        this.tabModel.setListaContatos(clientes);
         this.clienteSelecionadoParaAtualizacao = null;
         this.linhaClicadaParaAtualizacao = -1;
         this.tabCliente.setModel(tabModel);
@@ -224,111 +205,29 @@ public class CadastraCliente extends javax.swing.JFrame {
         }
     }
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
-        String nome = this.txtNome.getText();
-        String sobreNome = this.txtSobreNome.getText();
-        String rg = this.txtRG.getText();
-        String cpf = this.txtCPF.getText();
-        String endereco = this.txtEndereco.getText();
-        
-        if (nome.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Nome não valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if (sobreNome.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Sobrenome não valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if (endereco.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Endereço não valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if (!validaCpf(cpf)) {
-            JOptionPane.showMessageDialog(null,"CPF não valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;  
-        }
-        if (!validaRg(rg)) {
-            JOptionPane.showMessageDialog(null,"RG não valido\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;  
-        }
-        
-        Cliente novoCliente = new Cliente(nome, sobreNome, rg, cpf, endereco);
-        ClienteDAO clienteDAO1 = new ClienteDAOImpl();
-        clienteDAO1.save(novoCliente); 
-        this.tabModel.setListaContatos(clienteDAO1.getAllClientes());
-        this.tabCliente.setRowSelectionInterval(clienteDAO1.getAllClientes().size() - 1, clienteDAO1.getAllClientes().size() - 1);
-        this.clienteSelecionadoParaAtualizacao = novoCliente;
-        this.linhaClicadaParaAtualizacao = clienteDAO1.getAllClientes().size() - 1;
+
+    public void addCadastrarButtonListener(ActionListener listener) {
+        btnCadastrar.addActionListener(listener);
     }
 
-    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {
-        this.tabModel.setListaContatos(clienteDAO.getAllClientes());
-        this.clienteSelecionadoParaAtualizacao = null;
-        this.linhaClicadaParaAtualizacao = -1;
+    public void addAtualizarButtonListener(ActionListener listener) {
+        btnAtualizar.addActionListener(listener);
     }
 
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {
-        this.txtNome.setText("");
-        this.txtSobreNome.setText("");
-        this.txtRG.setText("");
-        this.txtCPF.setText("");
-        this.txtEndereco.setText("");
-        this.tabModel.setListaContatos(clienteDAO.getAllClientes());
-        this.clienteSelecionadoParaAtualizacao = null;
-        this.linhaClicadaParaAtualizacao = -1;
+    public void addExcluirButtonListener(ActionListener listener) {
+        btnExcluir.addActionListener(listener);
     }
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {
-        List<Cliente> listaExcluir = getClienteParaExcluirDaTabela();
-
-        if (listaExcluir.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione alguma linha para excluir.\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-
-        int option = JOptionPane.showConfirmDialog(null, 
-            "Tem certeza que deseja excluir o(s) cliente(s) selecionado(s)?\nTodas as contas vinculadas serão apagadas.", 
-            "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
-
-        if (option == JOptionPane.YES_OPTION) {
-            this.tabModel.removeClientes(listaExcluir);
-
-            for (Cliente c : listaExcluir) {
-                // Excluir diretamente pelo CPF
-                clienteDAO.deleteByCpf(c.getCpf());
-            }
-
-            this.clienteSelecionadoParaAtualizacao = null;
-            this.linhaClicadaParaAtualizacao = -1;
-        }
+    public void addListarButtonListener(ActionListener listener) {
+        btnListar.addActionListener(listener);
     }
 
-    private void tabClienteMouseClicked(java.awt.event.MouseEvent evt) {
-        this.linhaClicadaParaAtualizacao = this.tabCliente.rowAtPoint(evt.getPoint());
-        Cliente cliente = this.tabModel.getCliente(this.linhaClicadaParaAtualizacao);
-        this.setCliente(cliente);
-    }
-
-    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {
-        Cliente clienteParaAtualizar = this.getClienteParaAtualizar();
-        clienteDAO.updateCliente(clienteParaAtualizar);
-        this.tabModel.atualizarCliente(this.linhaClicadaParaAtualizacao);
+    public void addLimparButtonListener(ActionListener listener) {
+        btnLimpar.addActionListener(listener);
     }
 
 
-    private List<Cliente> getClienteParaExcluirDaTabela() {
-        int[] linhasSelecionadas = this.tabCliente.getSelectedRows();
-        List<Cliente> listaExcluir = new ArrayList<>();
-
-        for (int linhasSelecionada : linhasSelecionadas) {
-            Cliente contato = this.tabModel.getCliente(linhasSelecionada);
-            listaExcluir.add(contato);
-        }
-
-        return listaExcluir;
-    }
-
-    private Cliente getClienteParaAtualizar() {
+    public Cliente getClienteParaAtualizar() {
         if (this.clienteSelecionadoParaAtualizacao == null) {
             JOptionPane.showMessageDialog(null,"Selecione um cliente na tabela para atualizar.\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
             return null;
@@ -358,5 +257,69 @@ public class CadastraCliente extends javax.swing.JFrame {
         this.txtRG.setText(c.getRg());
         this.txtCPF.setText(c.getCpf());
         this.txtEndereco.setText(c.getEndereco());
+    }
+
+    public void limparCampos(List<Cliente> clientes) {
+        this.txtNome.setText("");
+        this.txtSobreNome.setText("");
+        this.txtRG.setText("");
+        this.txtCPF.setText("");
+        this.txtEndereco.setText("");
+        this.tabModel.setListaContatos(clientes);
+        this.clienteSelecionadoParaAtualizacao = null;
+        this.linhaClicadaParaAtualizacao = -1;
+    }
+
+    public void listar(List<Cliente> clientes) {
+        this.tabModel.setListaContatos(clientes);
+        this.clienteSelecionadoParaAtualizacao = null;
+        this.linhaClicadaParaAtualizacao = -1;
+    }
+
+    public Cliente getClienteParaCadastrar() throws Exception {
+        String nome = this.txtNome.getText();
+        String sobreNome = this.txtSobreNome.getText();
+        String rg = this.txtRG.getText();
+        String cpf = this.txtCPF.getText();
+        String endereco = this.txtEndereco.getText();
+
+        if (nome.isEmpty()) throw new Exception("Nome não valido\n");
+        if (sobreNome.isEmpty()) throw new Exception("Sobrenome não valido\n");
+        if (endereco.isEmpty()) throw new Exception("Endereço não valido\n");
+        if (!validaCpf(cpf)) throw new Exception("CPF não valido\n");
+        if (!validaRg(rg)) throw new Exception("RG não valido\n");
+
+        return new Cliente(nome, sobreNome, rg, cpf, endereco);
+    }
+
+    private void tabClienteMouseClicked(java.awt.event.MouseEvent evt) {
+        this.linhaClicadaParaAtualizacao = this.tabCliente.rowAtPoint(evt.getPoint());
+        Cliente cliente = this.tabModel.getCliente(this.linhaClicadaParaAtualizacao);
+        this.setCliente(cliente);
+    }
+
+    public void atualizarListaPosCadastro(List<Cliente> clientes, Cliente novoCliente) {
+        this.tabModel.setListaContatos(clientes);
+        this.tabCliente.setRowSelectionInterval(clientes.size() - 1, clientes.size() - 1);
+        this.clienteSelecionadoParaAtualizacao = novoCliente;
+        this.linhaClicadaParaAtualizacao = clientes.size() - 1;
+    }
+
+    public List<Cliente> getClientesParaExcluir() throws Exception {
+        int[] linhasSelecionadas = this.tabCliente.getSelectedRows();
+        List<Cliente> listaExcluir = new ArrayList<>();
+
+        for (int linhasSelecionada : linhasSelecionadas) {
+            Cliente contato = this.tabModel.getCliente(linhasSelecionada);
+            listaExcluir.add(contato);
+        }
+
+        if (listaExcluir.isEmpty()) throw new Exception("Selecione alguma linha para excluir.\n");
+
+        int option = JOptionPane.showConfirmDialog(null,
+                "Tem certeza que deseja excluir o(s) cliente(s) selecionado(s)?\nTodas as contas vinculadas serão apagadas.",
+                "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+
+        return option == JOptionPane.YES_OPTION ? listaExcluir : null;
     }
 }

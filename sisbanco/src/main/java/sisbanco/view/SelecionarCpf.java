@@ -2,11 +2,9 @@ package sisbanco.view;
 
 import javax.swing.*;
 
-import sisbanco.models.dao.ClienteDAO;
-import sisbanco.models.dao.ClienteDAOImpl;
-import sisbanco.models.entities.Cliente;
-import sisbanco.exceptions.ClienteNaoEncontradoException;
 import sisbanco.utils.Validador;
+
+import java.awt.event.ActionListener;
 
 public class SelecionarCpf extends javax.swing.JFrame {
     // START OF GENERATED CODE
@@ -18,11 +16,6 @@ public class SelecionarCpf extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
 
         jButton1.setText("Entrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("CPF");
 
@@ -59,7 +52,6 @@ public class SelecionarCpf extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
-    private ClienteDAO clienteDAO;
     // END OF GENERATED CODE
 
     public SelecionarCpf() {
@@ -68,23 +60,17 @@ public class SelecionarCpf extends javax.swing.JFrame {
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.clienteDAO = new ClienteDAOImpl();
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        String cpf = jTextField1.getText();
+    public String getCpfParaEntrar() throws Exception {
+        String cpf = this.jTextField1.getText();
+        if (!Validador.validaCpf(cpf))
+            throw new Exception("CPF inválido");
+        return cpf;
+    }
 
-        if (!Validador.validaCpf(cpf)) {
-            JOptionPane.showMessageDialog(this, "CPF inválido", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
 
-        try {
-            Cliente cliente = clienteDAO.findByCpf(cpf);   
-            ManipularConta manipularConta = new ManipularConta(cliente);
-            manipularConta.setVisible(true);
-        } catch (ClienteNaoEncontradoException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Informação", JOptionPane.INFORMATION_MESSAGE);
-        }
+    public void addEntrarParaManipularContaButtonListener(ActionListener listener) {
+        this.jButton1.addActionListener(listener);
     }
 }

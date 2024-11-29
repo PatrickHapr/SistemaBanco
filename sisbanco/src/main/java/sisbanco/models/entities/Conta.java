@@ -34,6 +34,10 @@ public abstract class Conta implements ContaI {
         return dono;
     }
 
+    public void setDono(Cliente dono) {
+        this.dono = dono;
+    }
+
     @Override
     public int getNumero() {
         return numero;
