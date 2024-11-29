@@ -141,11 +141,15 @@ public class Controller {
 
     private void criarContaInvestimentoListener(ActionEvent e) {
         try {
-            ContaInvestimento conta = this.clienteContaView.getContaInvestimentoParaCriar();
+            ContaInvestimento novaConta = this.clienteContaView.getContaInvestimentoParaCriar();
             String nameOfSelectedClient = this.clienteContaView.getNameOfSelectedClient();
             Cliente cliente = this.clienteDAO.findClientesByName(nameOfSelectedClient);
-            conta.setDono(cliente);
-            this.contaDAO.saveContaInvestimento(conta);
+
+            if (this.contaDAO.getContaByCliente(cliente.getCpf()) != null)
+                throw new Exception("Não foi possível criar pois o cliente já tem uma conta");
+
+            novaConta.setDono(cliente);
+            this.contaDAO.saveContaInvestimento(novaConta);
             this.apresentarInfo("Conta de investimento criada com sucesso\n");
         } catch (Exception err) {
             err.printStackTrace();
@@ -158,6 +162,10 @@ public class Controller {
             ContaCorrente conta = this.clienteContaView.getContaCorrenteParaCriar();
             String nameOfSelectedClient = this.clienteContaView.getNameOfSelectedClient();
             Cliente cliente = this.clienteDAO.findClientesByName(nameOfSelectedClient);
+
+            if (this.contaDAO.getContaByCliente(cliente.getCpf()) != null)
+                throw new Exception("Não foi possível criar pois o cliente já tem uma conta");
+
             conta.setDono(cliente);
             this.contaDAO.saveContaCorrente(conta);
             this.apresentarInfo("Conta corrente criada com sucesso\n");
