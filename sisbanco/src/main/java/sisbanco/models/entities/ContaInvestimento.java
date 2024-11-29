@@ -1,4 +1,4 @@
-package sisbanco.entities;
+package sisbanco.models.entities;
 
 public class ContaInvestimento extends Conta {
     private double montanteMinimo;

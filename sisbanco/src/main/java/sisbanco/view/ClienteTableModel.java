@@ -5,7 +5,7 @@
 
 package sisbanco.view;
 
-import sisbanco.entities.Cliente;
+import sisbanco.models.entities.Cliente;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package sisbanco.entities;
+package sisbanco.models.entities;
 
 public class Cliente {
     private int id;

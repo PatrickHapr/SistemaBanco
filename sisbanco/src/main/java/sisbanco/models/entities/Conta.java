@@ -1,4 +1,4 @@
-package sisbanco.entities;
+package sisbanco.models.entities;
 
 public abstract class Conta implements ContaI {
     protected Cliente dono;
@@ -32,6 +32,10 @@ public abstract class Conta implements ContaI {
     @Override
     public Cliente getDono() {
         return dono;
+    }
+
+    public void setDono(Cliente dono) {
+        this.dono = dono;
     }
 
     @Override

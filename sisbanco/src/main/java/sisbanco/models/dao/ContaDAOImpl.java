@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sisbanco.dao;
+package sisbanco.models.dao;
 
 /**
  *
  * @author PCX
  */
 import sisbanco.bd.DatabaseConnection;
-import sisbanco.entities.Cliente;
-import sisbanco.entities.ContaCorrente;
+import sisbanco.models.entities.Cliente;
+import sisbanco.models.entities.ContaCorrente;
 import java.sql.*;
-import sisbanco.entities.ContaInvestimento;
+import sisbanco.models.entities.ContaInvestimento;
 
 public class ContaDAOImpl implements ContaDAO {
 
