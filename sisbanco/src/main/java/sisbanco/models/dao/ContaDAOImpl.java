@@ -149,7 +149,7 @@ public class ContaDAOImpl implements ContaDAO {
     }
     @Override
     public void sacar(String cpf, double valor) {
-        String sql = "UPDATE account SET BALANCE = BALANCE - ? WHERE OWNER = ? AND BALANCE >= ?";
+        String sql = "UPDATE account " + "SET BALANCE = BALANCE - ? " + "WHERE OWNER = ? AND (BALANCE + LIMITE) >= ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -159,13 +159,13 @@ public class ContaDAOImpl implements ContaDAO {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected == 0) {
-                throw new RuntimeException("Saldo insuficiente ou cliente não encontrado.");
+                throw new RuntimeException("Saldo insuficiente, limite excedido ou cliente não encontrado.");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao sacar: " + e.getMessage(), e);
         }
     }
-
+    
     @Override
     public void depositar(String cpf, double valor) {
         if (valor <= 0) {
