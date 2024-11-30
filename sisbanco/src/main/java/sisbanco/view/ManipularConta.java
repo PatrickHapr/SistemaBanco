@@ -12,6 +12,7 @@ import sisbanco.models.entities.Conta;
 import javax.swing.*;
 import sisbanco.models.dao.ContaDAO;
 import sisbanco.models.dao.ContaDAOImpl;
+import sisbanco.models.entities.ContaCorrente;
 
 /**
  *
@@ -426,7 +427,6 @@ public class ManipularConta extends javax.swing.JFrame {
         this.btnDepositar.addActionListener(listener);
     }
 
-
     public double getValorSaque() throws Exception {
         if (this.contaDoCliente == null)
             throw new Exception("Crie uma conta antes de sacar");
@@ -436,8 +436,13 @@ public class ManipularConta extends javax.swing.JFrame {
         if (valorSaque < 0)
             throw new Exception("Não é possível sacar um valor menor que 0");
 
-        if (this.contaDoCliente.getSaldo() < valorSaque)
-            throw new Exception("Saldo indisponível");
+        if (contaDoCliente instanceof ContaCorrente contaCorrente) {
+            double limite = contaCorrente.getLimite();
+            if ((contaCorrente.getSaldo() - valorSaque) < -limite)
+                throw new Exception("Saldo insuficiente, incluindo o limite");
+        } else if (valorSaque > contaDoCliente.getSaldo()) {
+            throw new Exception("Saldo insuficiente");
+        }
 
         return valorSaque;
     }
