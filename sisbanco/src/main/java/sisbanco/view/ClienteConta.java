@@ -33,9 +33,8 @@ public class ClienteConta extends javax.swing.JFrame {
 
     public ClienteConta() {
         initComponents();
-        ContaInvestimento.setVisible(false);
         ContaCorrente.setVisible(false);
-        carregarClientes();
+        ContaInvestimento.setVisible(false);
     }
     
     /**
@@ -58,13 +57,13 @@ public class ClienteConta extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        ContaInvestimento = new javax.swing.JPanel();
+        ContaCorrente = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         DIC = new javax.swing.JTextField();
         LC = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
-        ContaCorrente = new javax.swing.JPanel();
+        ContaInvestimento = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -179,7 +178,7 @@ public class ClienteConta extends javax.swing.JFrame {
             .addGap(0, 37, Short.MAX_VALUE)
         );
 
-        ContaInvestimento.setBackground(new java.awt.Color(150, 157, 217));
+        ContaCorrente.setBackground(new java.awt.Color(150, 157, 217));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,50 +193,45 @@ public class ClienteConta extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Criar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
-        javax.swing.GroupLayout ContaInvestimentoLayout = new javax.swing.GroupLayout(ContaInvestimento);
-        ContaInvestimento.setLayout(ContaInvestimentoLayout);
-        ContaInvestimentoLayout.setHorizontalGroup(
-            ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContaInvestimentoLayout.createSequentialGroup()
+        javax.swing.GroupLayout ContaCorrenteLayout = new javax.swing.GroupLayout(ContaCorrente);
+        ContaCorrente.setLayout(ContaCorrenteLayout);
+        ContaCorrenteLayout.setHorizontalGroup(
+            ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContaCorrenteLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DIC, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LC, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        ContaInvestimentoLayout.setVerticalGroup(
-            ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContaInvestimentoLayout.createSequentialGroup()
+        ContaCorrenteLayout.setVerticalGroup(
+            ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContaCorrenteLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ContaInvestimentoLayout.createSequentialGroup()
+                .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ContaCorrenteLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel11)
                         .addGap(19, 19, 19)
                         .addComponent(jLabel12))
-                    .addGroup(ContaInvestimentoLayout.createSequentialGroup()
+                    .addGroup(ContaCorrenteLayout.createSequentialGroup()
                         .addComponent(DIC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(LC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ContaInvestimentoLayout.createSequentialGroup()
+                    .addGroup(ContaCorrenteLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        ContaCorrente.setBackground(new java.awt.Color(150, 157, 217));
+        ContaInvestimento.setBackground(new java.awt.Color(150, 157, 217));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,78 +246,72 @@ public class ClienteConta extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Criar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Depósito Inicial :");
 
-        javax.swing.GroupLayout ContaCorrenteLayout = new javax.swing.GroupLayout(ContaCorrente);
-        ContaCorrente.setLayout(ContaCorrenteLayout);
-        ContaCorrenteLayout.setHorizontalGroup(
-            ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContaCorrenteLayout.createSequentialGroup()
+        javax.swing.GroupLayout ContaInvestimentoLayout = new javax.swing.GroupLayout(ContaInvestimento);
+        ContaInvestimento.setLayout(ContaInvestimentoLayout);
+        ContaInvestimentoLayout.setHorizontalGroup(
+            ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContaInvestimentoLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
-                .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MM, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ContaCorrenteLayout.createSequentialGroup()
-                        .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(ContaInvestimentoLayout.createSequentialGroup()
+                        .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(DII)
                             .addComponent(DMI, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
-        ContaCorrenteLayout.setVerticalGroup(
-            ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContaCorrenteLayout.createSequentialGroup()
+        ContaInvestimentoLayout.setVerticalGroup(
+            ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContaInvestimentoLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(MM, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DMI, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
-                .addGroup(ContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(DII, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
-        jLayeredPane1.setLayer(ContaInvestimento, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(ContaCorrente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(ContaInvestimento, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContaInvestimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContaCorrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(ContaCorrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(ContaInvestimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ContaInvestimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(ContaCorrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ContaCorrente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ContaInvestimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
 
@@ -351,8 +339,9 @@ public class ClienteConta extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -365,25 +354,11 @@ public class ClienteConta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void carregarClientes() {
-        try {
-            ClienteDAOImpl clienteDAO = new ClienteDAOImpl(); 
-            List<Cliente> clientes = clienteDAO.getAllClientes(); 
-
-            for (Cliente cliente : clientes) {
-                ComboCliente.addItem(cliente.getNome());
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar clientes: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }
     
      public void addCriarContaInvestimentoButtonListener(ActionListener listener) {
         this.jButton1.addActionListener(listener);
@@ -392,7 +367,7 @@ public class ClienteConta extends javax.swing.JFrame {
     public void addCriarContaCorrenteListener(ActionListener listener) {
         this.jButton3.addActionListener(listener);
     }
- public ContaInvestimento getContaInvestimentoParaCriar() {
+    public ContaInvestimento getContaInvestimentoParaCriar() {
         double montanteMinimo = Double.parseDouble(MM.getText());
         double depositoMinimo = Double.parseDouble(DMI.getText());
         double depositoInicial = Double.parseDouble(DII.getText());
@@ -402,10 +377,10 @@ public class ClienteConta extends javax.swing.JFrame {
                 null, numeroGerado, depositoInicial, montanteMinimo, depositoMinimo
         );
     }
-  public String getNameOfSelectedClient() {
+    public String getNameOfSelectedClient() {
         return this.nameOfSelectedClient;
     }
-  public ContaCorrente getContaCorrenteParaCriar() {
+    public ContaCorrente getContaCorrenteParaCriar() {
         double depositoInicial = Double.parseDouble(DIC.getText());
         double limite = Double.parseDouble(LC.getText());
         int numeroGerado = (int) gerarNumeroAleatorio();
@@ -421,16 +396,6 @@ public class ClienteConta extends javax.swing.JFrame {
             ComboCliente.addItem(cliente.getNome());
     }
     
-    private void VincularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VincularActionPerformed
-        if ("Conta Corrente".equals(nameOfSelectedAccount)) {
-            ContaInvestimento.setVisible(false);
-            ContaCorrente.setVisible(true);
-        } else if ("Conta Investimento".equals(nameOfSelectedAccount)) {
-            ContaInvestimento.setVisible(true);
-            ContaCorrente.setVisible(false);
-        }
-    }//GEN-LAST:event_VincularActionPerformed
-
     private void ComboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboClienteActionPerformed
         this.nameOfSelectedClient = (String) ComboCliente.getSelectedItem();
         System.out.println(this.nameOfSelectedClient);
@@ -440,46 +405,16 @@ public class ClienteConta extends javax.swing.JFrame {
         this.nameOfSelectedAccount = (String) ComboConta.getSelectedItem();
     }//GEN-LAST:event_ComboContaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        double depositoInicial = Double.parseDouble(DIC.getText());
-        double limite = Double.parseDouble(LC.getText());
-        int numeroGerado = (int) gerarNumeroAleatorio();
-        try {
-            ClienteDAO clienteDAO = new ClienteDAOImpl();
-            Cliente cliente = (Cliente) clienteDAO.findClientesByName(this.nameOfSelectedClient);
-
-            ContaCorrente novaContaCorrente = new ContaCorrente(cliente, numeroGerado, depositoInicial, limite);
-
-            ContaDAO contaDAO = new ContaDAOImpl();
-            contaDAO.saveContaCorrente(novaContaCorrente);
-
-            JOptionPane.showMessageDialog(null, "Conta corrente criada com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-        } catch (ClienteJaTemContaException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    private void VincularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VincularActionPerformed
+        if("Conta Corrente".equals(nameOfSelectedAccount))
+        {
+            ContaInvestimento.setVisible(false);
+            ContaCorrente.setVisible(true);
+        } else if ("Conta Investimento".equals(nameOfSelectedAccount)) {
+            ContaInvestimento.setVisible(true);
+            ContaCorrente.setVisible(false);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        double montanteMinimo = Double.parseDouble(MM.getText());
-        double depositoMinimo = Double.parseDouble(DMI.getText());
-        double depositoInicial = Double.parseDouble(DII.getText());
-        int numeroGerado = (int) gerarNumeroAleatorio();
-        try {
-            ClienteDAO clienteDAO = new ClienteDAOImpl();
-            Cliente cliente = (Cliente) clienteDAO.findClientesByName(this.nameOfSelectedClient);
-            ContaInvestimento novaContaInvestimento = new ContaInvestimento(cliente,
-                numeroGerado, depositoInicial, montanteMinimo, depositoMinimo);
-            ContaDAO contaDAO = new ContaDAOImpl();
-            contaDAO.saveContaInvestimento(novaContaInvestimento);
-            JOptionPane.showMessageDialog(null, "Conta de investimento criada com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-        } catch (ClienteJaTemContaException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_VincularActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
